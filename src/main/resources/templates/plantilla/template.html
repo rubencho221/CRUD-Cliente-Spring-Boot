@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:fragment="head">
+<meta charset="UTF-8">
+<title>CRUD Clientes</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/signin.css}">
+</head>
+<body>
+
+	<!-- BARRA DE NAVEGACION -->
+	<header th:fragment="header">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="container">
+				<a class="navbar-brand" href="#"> <strong> My Logo </strong>
+				</a>
+
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<!-- ENLACES DEL MENU -->
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link active"
+							aria-current="page" th:href="@{/index}">Inicio</a></li>
+						<li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link"
+							th:href="@{/views/clientes/}">Clientes</a></li>
+					</ul>
+					<ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+						<li sec:authorize="!isAuthenticated()"><a
+							class="btn btn-outline-warning" th:href="@{/login}">Iniciar
+								Sesion</a></li>
+
+						<li class="dropdown" sec:authorize="isAuthenticated()">
+							<a class="btn btn-outline-warning dropdown-toggle" href="#"
+								role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<span sec:authentication="name"></span> 
+							</a>
+
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="#">Perfil</a></li>
+								<li><a class="dropdown-item" href="#">Cambiar Password</a></li>
+								
+								<form th:action="@{/logout}" method="post">
+									<button class="dropdown-item" type="submit">Cerrar Sesion</button>
+								</form>
+							</ul>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<!-- MENSAJES -->
+
+		<div class="alert alert-warning alert-dismissible fade show"
+			th:if="${warning != null}">
+			<strong th:text="${warning}"></strong>
+			<button type="button" class="btn-close" data-bs-dismiss="alert"
+				aria-label="Close"></button>
+		</div>
+
+		<div class="alert alert-success alert-dismissible fade show"
+			th:if="${success != null}">
+			<strong th:text="${success}"></strong>
+			<button type="button" class="btn-close" data-bs-dismiss="alert"
+				aria-label="Close"></button>
+		</div>
+
+		<div class="alert alert-danger alert-dismissible fade show"
+			th:if="${error != null}">
+			<strong th:text="${error}"></strong>
+			<button type="button" class="btn-close" data-bs-dismiss="alert"
+				aria-label="Close"></button>
+		</div>
+
+		<div class="alert alert-info alert-dismissible fade show"
+			th:if="${info != null}">
+			<strong th:text="${info}"></strong>
+			<button type="button" class="btn-close" data-bs-dismiss="alert"
+				aria-label="Close"></button>
+		</div>
+
+	</header>
+
+	<!-- CONTENIDO -->
+	<div class="container"></div>
+
+
+	<!-- PIE DE PAGINA -->
+	<footer th:fragment="footer"
+		class="bg-dark text-center text-white fixed-bottom">
+
+		<div class="container">
+			<p>Copyright StartCode &copy; -2022</p>
+		</div>
+
+		<script type="text/javascript" th:src="@{/js/jquery-3.6.1.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+	</footer>
+
+</body>
+</html>
